@@ -18,7 +18,6 @@ export const metadata: Metadata = {
     description: "Be among the first to access the revolutionary code-switching research platform",
     type: "website",
   },
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({

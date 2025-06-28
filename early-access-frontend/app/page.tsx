@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-
+import { Analytics } from "@vercel/analytics/next"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -139,6 +139,7 @@ export default function HomePage() {
   }
 
   return (
+    
     <div className="min-h-screen bg-gradient-to-br from-teal-50 to-neutral-50">
       {/* Header */}
       <header className="relative z-10 px-4 sm:px-6 lg:px-8 py-6">
@@ -182,6 +183,7 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
+      <Analytics />
       <section className="relative px-4 sm:px-6 lg:px-8 py-20">
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-8">
@@ -632,9 +634,8 @@ function ThankYouPage({ email, name }: { email: string; name: string }) {
         <div className="space-y-6">
           <h3 className="text-lg font-semibold text-neutral-900">What happens next?</h3>
           <div className="text-neutral-600 space-y-2">
-            <p>📧 You'll receive a confirmation email shortly</p>
-            <p>🚀 We'll notify you as soon as beta access opens</p>
-            <p>💬 Follow us on social media for development updates</p>
+            <p>You'll receive a confirmation email shortly</p>
+            <p>We'll notify you as soon as beta access opens</p>
           </div>
           
           <div className="pt-4 border-t border-neutral-200">

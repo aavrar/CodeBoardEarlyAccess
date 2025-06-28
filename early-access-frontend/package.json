@@ -5,7 +5,16 @@
   "private": true,
   "author": "Aahad Vakani <aahadvakani@gmail.com>",
   "license": "ISC",
-  "keywords": ["codeboard", "early-access", "code-switching", "linguistics", "research", "multilingual", "nextjs", "react"],
+  "keywords": [
+    "codeboard",
+    "early-access",
+    "code-switching",
+    "linguistics",
+    "research",
+    "multilingual",
+    "nextjs",
+    "react"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/aavrar/CodeBoardEarlyAccess"
@@ -49,6 +58,7 @@
     "@radix-ui/react-toggle": "1.1.1",
     "@radix-ui/react-toggle-group": "1.1.1",
     "@radix-ui/react-tooltip": "1.1.6",
+    "@vercel/analytics": "^1.5.0",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
