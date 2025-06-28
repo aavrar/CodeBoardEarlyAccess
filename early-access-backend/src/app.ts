@@ -30,12 +30,26 @@ app.use((req, res, next) => {
 app.use('/api/oauth', oauthRouter);
 app.use('/api/contributions', contributionsRouter);
 
-// Ping endpoint
+// Lightweight health check for keep-alive
+app.get('/health', (req: Request, res: Response) => {
+  res.status(200).send('OK');
+});
+
+// Ping endpoint - optimized for Render keep-alive
 app.get('/api/ping', (req: Request, res: Response) => {
+  const memoryUsage = process.memoryUsage();
+  const uptime = process.uptime();
+  
   res.json({ 
     success: true, 
     message: 'Early Access Backend is running',
     timestamp: new Date().toISOString(),
+    uptime: `${Math.floor(uptime / 60)}m ${Math.floor(uptime % 60)}s`,
+    memory: {
+      rss: `${Math.round(memoryUsage.rss / 1024 / 1024)}MB`,
+      heapUsed: `${Math.round(memoryUsage.heapUsed / 1024 / 1024)}MB`,
+    },
+    environment: process.env.NODE_ENV || 'development',
   });
 });
 

@@ -15,6 +15,7 @@ This early access app is a standalone system designed to collect user signups an
 - **Database**: PostgreSQL via Supabase with Prisma ORM
 - **Authentication**: JWT-based auth with Google OAuth integration
 - **Deployment**: Frontend on Vercel, Backend on Render
+- **Keep-Alive**: Automatic ping system to prevent Render backend from sleeping
 
 ## ✅ **Current Status**
 
@@ -168,9 +169,16 @@ NEXT_PUBLIC_GOOGLE_CLIENT_ID="your-google-client-id"
 - `POST /api/examples` - Submit code-switching example
 - `GET /api/examples` - Retrieve examples (with pagination)
 
-### **Analytics**
+### **Analytics & Monitoring**
 - `GET /api/dashboard/metrics` - Live statistics
-- `GET /api/ping` - Health check
+- `GET /health` - Lightweight health check (for keep-alive)
+- `GET /api/ping` - Detailed ping with memory stats
+
+### **Keep-Alive System**
+- **Automatic Ping**: Frontend pings backend every 10 minutes
+- **Render Optimization**: Prevents free tier from sleeping after 15 minutes
+- **Production Only**: Disabled in local development
+- **Smart Detection**: Auto-enables when backend URL contains 'render.com'
 
 ## 📊 **Database Schema**
 
