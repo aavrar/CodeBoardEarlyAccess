@@ -1,0 +1,167 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User tiers for access control
+enum UserTier {
+  COMMUNITY
+  RESEARCHER
+  ADMIN
+}
+
+// Authentication providers
+enum AuthProvider {
+  EMAIL
+  GOOGLE
+  GITHUB
+}
+
+// Application status for researcher access requests
+enum ApplicationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model User {
+  id              String        @id @default(cuid())
+  email           String        @unique
+  passwordHash    String?       @map("password_hash") // Optional for OAuth users
+  name            String?
+  displayName     String?       @map("display_name") // Public display name
+  bio             String?       // User bio for profiles
+  profileImage    String?       @map("profile_image") // Profile image URL
+  tier            UserTier      @default(COMMUNITY)
+  authProvider    AuthProvider  @default(EMAIL) @map("auth_provider")
+  providerUserId  String?       @map("provider_user_id") // OAuth provider user ID
+  emailVerified   Boolean       @default(false) @map("email_verified")
+  emailOptIn      Boolean       @default(true) @map("email_opt_in")
+  isActive        Boolean       @default(true) @map("is_active")
+  lastLoginAt     DateTime?     @map("last_login_at")
+  preferredTools  String[]      @default([]) @map("preferred_tools") // Research tools preference
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+
+  // Relations
+  examples              Example[]
+  researchApplications  ResearchApplication[]
+  submittedApplications ResearchApplication[] @relation("ApplicationReviewer")
+
+  @@map("users")
+  @@index([email])
+  @@index([tier])
+  @@index([authProvider])
+  @@index([createdAt])
+}
+
+// Research tool access applications for non-.edu users
+model ResearchApplication {
+  id          String            @id @default(cuid())
+  userId      String            @map("user_id")
+  requestedTools String[]       @map("requested_tools") // Specific tools requested
+  justification  String         // Why they need research access
+  institution    String?        // Institution or organization
+  researchArea   String?        @map("research_area") // Field of research
+  status         ApplicationStatus @default(PENDING)
+  reviewedBy     String?        @map("reviewed_by") // Admin who reviewed
+  reviewNotes    String?        @map("review_notes") // Admin notes
+  submittedAt    DateTime       @default(now()) @map("submitted_at")
+  reviewedAt     DateTime?      @map("reviewed_at")
+
+  // Relations
+  user       User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reviewer   User? @relation("ApplicationReviewer", fields: [reviewedBy], references: [id])
+
+  @@map("research_applications")
+  @@index([userId])
+  @@index([status])
+  @@index([submittedAt])
+}
+
+model Example {
+  id               String   @id @default(cuid())
+  text             String
+  languages        String[]
+  context          String?
+  region           String?
+  platform         String?
+  age              String?
+  isVerified       Boolean  @default(false) @map("is_verified")
+  isPublic         Boolean  @default(true) @map("is_public") // Community visibility
+  qualityScore     Float?   @map("quality_score") // Community rating
+  contributorNotes String?  @map("contributor_notes") // Notes from submitter
+  createdAt        DateTime @default(now()) @map("created_at")
+  
+  // Enhanced NLP fields
+  tokens           Json[]   @default([]) // Tokenized words with language detection
+  phrases          Json[]   @default([]) // Phrase-level clusters
+  switchPoints     Int[]    @default([]) @map("switch_points") // Switch point indices
+  confidence       Float?   // Overall analysis confidence
+  detectedLanguages String[] @default([]) @map("detected_languages") // AI-detected languages
+  userLanguageMatch Boolean @default(false) @map("user_language_match") // User vs AI agreement
+  
+  // Relations
+  userId       String?  @map("user_id")
+  user         User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("examples")
+  @@index([createdAt])
+  @@index([languages])
+  @@index([region])
+  @@index([platform])
+  @@index([isPublic])
+  @@index([isVerified])
+  @@index([qualityScore])
+  @@index([userId])
+}
+
+model Language {
+  id          String @id @default(cuid())
+  name        String @unique
+  code        String @unique
+  
+  @@map("languages")
+}
+
+model Region {
+  id          String @id @default(cuid())
+  name        String
+  country     String
+  
+  @@unique([name, country])
+  @@map("regions")
+}
+
+model Platform {
+  id          String @id @default(cuid())
+  name        String @unique
+  description String?
+  
+  @@map("platforms")
+}
+
+model Contribution {
+  id           String   @id @default(cuid())
+  text         String
+  languages    String[]
+  context      String?
+  region       String?
+  platform     String?
+  age          String?
+  userEmail    String?  @map("user_email")
+  userName     String?  @map("user_name")
+  submittedAt  DateTime @default(now()) @map("submitted_at")
+  
+  @@map("contributions")
+  @@index([submittedAt])
+  @@index([userEmail])
+  @@index([languages])
+}
