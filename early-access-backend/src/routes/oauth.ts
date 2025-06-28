@@ -4,6 +4,7 @@ import { oauthService } from '../services/oauthService';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import { prisma } from '../utils/database';
+import { asyncHandler } from '../utils/asyncHandler';
 import jwt from 'jsonwebtoken';
 
 dotenv.config();
@@ -127,7 +128,7 @@ router.get('/google/callback', async (req, res) => {
   }
 });
 
-router.get('/user', async (req: express.Request, res: express.Response) => {
+router.get('/user', asyncHandler(async (req: Request, res: Response) => {
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
@@ -166,6 +167,6 @@ router.get('/user', async (req: express.Request, res: express.Response) => {
     console.error('Error fetching user data:', error);
     return res.status(401).json({ success: false, message: 'Invalid or expired token' });
   }
-});
+}));
 
 export default router;

@@ -41,6 +41,10 @@ describe('OAuth Endpoints', () => {
         email_verified: true,
         name: 'Test User',
         picture: 'http://example.com/pic.jpg',
+        iss: 'https://accounts.google.com',
+        aud: 'test-client-id',
+        iat: Math.floor(Date.now() / 1000),
+        exp: Math.floor(Date.now() / 1000) + 3600,
       },
       tokens: { access_token: 'abc', refresh_token: 'xyz', expiry_date: 123 },
     });
@@ -48,8 +52,8 @@ describe('OAuth Endpoints', () => {
     mockNodemailer.createTransport.mockReturnValue({
       sendMail: jest.fn().mockResolvedValue(true),
     } as any);
-    mockJwt.sign.mockReturnValue('mock_jwt_token');
-    mockJwt.verify.mockReturnValue({ userId: 'mock_user_id', tier: 'RESEARCHER' });
+    (mockJwt.sign as jest.Mock).mockReturnValue('mock_jwt_token');
+    (mockJwt.verify as jest.Mock).mockReturnValue({ userId: 'mock_user_id', tier: 'RESEARCHER' });
 
     (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
     (prisma.user.create as jest.Mock).mockResolvedValue({
@@ -108,6 +112,10 @@ describe('OAuth Endpoints', () => {
           email_verified: true,
           name: 'Existing User',
           picture: 'http://example.com/pic.jpg',
+          iss: 'https://accounts.google.com',
+          aud: 'test-client-id',
+          iat: Math.floor(Date.now() / 1000),
+          exp: Math.floor(Date.now() / 1000) + 3600,
         },
         tokens: { access_token: 'abc', refresh_token: 'xyz', expiry_date: 123 },
       });
