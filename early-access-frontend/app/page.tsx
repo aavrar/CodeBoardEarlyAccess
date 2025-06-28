@@ -41,7 +41,7 @@ export default function HomePage() {
   const { user, logout } = useAuth()
 
   const handleGoogleSignIn = () => {
-    window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/oauth/google`;
+    window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/oauth/google`;
   };
 
   React.useEffect(() => {
