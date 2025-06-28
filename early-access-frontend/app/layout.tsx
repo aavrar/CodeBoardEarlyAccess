@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
+import { Analytics } from "@vercel/analytics/react"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
 import { AuthProvider } from "@/components/auth-provider"
@@ -31,6 +32,7 @@ export default function RootLayout({
         <PingProvider>
           <AuthProvider>
             <main className="min-h-screen">{children}</main>
+            <Analytics />
             <Toaster />
           </AuthProvider>
         </PingProvider>

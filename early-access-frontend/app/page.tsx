@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import { Analytics } from "@vercel/analytics/next"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -183,7 +182,6 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <Analytics />
       <section className="relative px-4 sm:px-6 lg:px-8 py-20">
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-8">
