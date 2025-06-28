@@ -509,50 +509,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Social Proof */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-teal-600">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-8">Trusted by Leading Researchers</h2>
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-            <div className="space-y-2">
-              <div className="text-4xl font-bold text-white">500+</div>
-              <div className="text-teal-100">Researchers Signed Up</div>
-            </div>
-            <div className="space-y-2">
-              <div className="text-4xl font-bold text-white">25+</div>
-              <div className="text-teal-100">Universities Interested</div>
-            </div>
-            <div className="space-y-2">
-              <div className="text-4xl font-bold text-white">15+</div>
-              <div className="text-teal-100">Countries Represented</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section - TODO: Replace with real-time statistics from backend */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-teal-600">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div className="space-y-2">
-              <div className="text-4xl font-bold text-white">15,000+</div>
-              <div className="text-teal-100">Code-switching Examples</div>
-            </div>
-            <div className="space-y-2">
-              <div className="text-4xl font-bold text-white">30+</div>
-              <div className="text-teal-100">Language Pairs</div>
-            </div>
-            <div className="space-y-2">
-              <div className="text-4xl font-bold text-white">1,200+</div>
-              <div className="text-teal-100">Active Contributors</div>
-            </div>
-            <div className="space-y-2">
-              <div className="text-4xl font-bold text-white">50+</div>
-              <div className="text-teal-100">Countries Represented</div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* CTA Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-neutral-50">
