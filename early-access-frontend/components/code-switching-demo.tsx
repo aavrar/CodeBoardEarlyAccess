@@ -37,26 +37,6 @@ const demoExamples = [
     languages: ["French", "English"],
     description: "Professional French-English code-switching"
   },
-  {
-    text: "Vamos a comer, I'm starving!",
-    languages: ["Spanish", "English"],
-    description: "Casual switch between Spanish and English"
-  },
-  {
-    text: "That's a cool idea, but ano ang gagawin natin?",
-    languages: ["English", "Tagalog"],
-    description: "Mixing English and Tagalog in a question"
-  },
-  {
-    text: "Saindha lo, we need to finish this task.",
-    languages: ["Urdu", "English"],
-    description: "Code-switching between Urdu and English for emphasis"
-  },
-  {
-    text: "Can we go to the cinema, por favor?",
-    languages: ["English", "Portuguese"],
-    description: "A simple request using English and Portuguese"
-  }
 ]
 
 export function CodeSwitchingDemo() {
